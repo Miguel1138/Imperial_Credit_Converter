@@ -10,20 +10,42 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/main_input_layout_credit"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/label_input_hint"
         app:helperText="@string/label_input_helper"
         app:helperTextEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/main_spinner_currency_code"
         app:layout_constraintTop_toTopOf="parent"
         app:prefixText="@string/prefix_input">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/main_edt_input_credit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/main_spinner_currency_code"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/default_margin"
+        app:helperTextEnabled="true"
+        app:helperText="@string/coin"
+        app:layout_constraintEnd_toStartOf="@id/main_input_layout_credit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/main_spinner_currency_txt"
+            android:text="@string/label_currency_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
@@ -40,6 +62,7 @@
         android:id="@+id/main_image_credit_simbol"
         android:layout_width="24dp"
         android:layout_height="0dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/main_txt_conversion"
         app:layout_constraintEnd_toStartOf="@id/main_txt_conversion"
         app:layout_constraintTop_toTopOf="@id/main_txt_conversion"
@@ -49,7 +72,9 @@
         android:id="@+id/main_txt_conversion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/result"
         android:textSize="16sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@id/main_btn_convert_credit"
         app:layout_constraintTop_toBottomOf="@id/main_btn_convert_credit"
         tools:text="500,00" />

@@ -4,4 +4,7 @@
     <string name="label_input_hint">Valor</string>
     <string name="label_input_helper">Insira o valor que deseja converter!</string>
     <string name="convert">Converter Créditos</string>
+    <string name="result">%s</string>
+    <string name="label_currency_default">BRL</string>
+    <string name="coin">Moeda</string>
 </resources>
