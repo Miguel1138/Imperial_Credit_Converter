@@ -4,32 +4,41 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.miguelsantos.coinconverter.databinding.ActivityMainBinding
+import com.miguelsantos.coinconverter.model.CurrencyConversion
 import java.text.NumberFormat
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var items: List<String>
+    private val adapter: CurrencyAdapter by lazy {
+        CurrencyAdapter()
+    }
+    private val list = arrayListOf<CurrencyConversion>()
 
-    // TODO: 30/07/2021 Adicionar RecyclerView na mainActivity com os útlimos valores convertidos. 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.mainRecyclerConversionList.adapter = adapter
+        binding.mainRecyclerConversionList.layoutManager =
+            LinearLayoutManager(applicationContext)
+
         // Currency code Spinner
-        items = listOf("BRL", "USD", "EUR", "MXN", "AUD", "JPY")
-        val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
+        //view Model
+        val items = listOf("BRL", "USD", "EUR", "MXN", "AUD", "JPY")
+        val itemsAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
             this,
             R.layout.item_currency_code_list, items
         )
-        val materialAutoCompleteTextView =
-            binding.mainSpinnerCurrencyCode.editText as? MaterialAutoCompleteTextView
-        materialAutoCompleteTextView?.setAdapter(adapter)
-        
         with(binding) {
+            val materialAutoCompleteTextView =
+                mainSpinnerCurrencyCode.editText as? MaterialAutoCompleteTextView
+            materialAutoCompleteTextView?.setAdapter(itemsAdapter)
+
             mainBtnConvertCredit.setOnClickListener {
                 showResult()
             }
@@ -37,11 +46,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showResult() {
-        binding.mainTxtConversion.visibility = View.VISIBLE
-        binding.mainImageCreditSimbol.visibility = View.VISIBLE
+        if (binding.mainTxtConversion.visibility == View.GONE) {
+            binding.mainTxtConversion.visibility = View.VISIBLE
+            binding.mainImageCreditSimbol.visibility = View.VISIBLE
+        }
 
         val conversion = binding.mainEdtInputCredit.text.toString().toDoubleOrNull()
         displayConversion(conversion)
+        addCurrency()
+    }
+
+    // viewModel
+    private fun addCurrency() {
+        val currency = CurrencyConversion(
+            binding.mainSpinnerCurrencyTxt.text.toString(),
+            binding.mainEdtInputCredit.text.toString(),
+            binding.mainTxtConversion.text.toString()
+        )
+        list.add(currency)
+        adapter.submitList(list)
     }
 
     private fun displayConversion(value: Double?) {
@@ -49,8 +72,8 @@ class MainActivity : AppCompatActivity() {
             binding.mainTxtConversion.text = "0.0"
             return
         } else {
+            // viewModel
             val result = when (binding.mainSpinnerCurrencyTxt.text.toString()) {
-            // TODO: 30/07/2021 Trocar por equals ou outro método para comparar os valores das strings
                 "BRL" -> value * 5.21
                 "EUR" -> value * 0.84
                 "USD" -> value
