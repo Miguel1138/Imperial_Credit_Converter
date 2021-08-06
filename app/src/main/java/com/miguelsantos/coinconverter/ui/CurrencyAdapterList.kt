@@ -1,4 +1,4 @@
-package com.miguelsantos.coinconverter
+package com.miguelsantos.coinconverter.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
