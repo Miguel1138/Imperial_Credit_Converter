@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:padding="@dimen/default_padding"
         tools:context=".ui.MainActivity">
 
         <com.google.android.material.textfield.TextInputLayout
@@ -30,6 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
+                android:maxLength="10"
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -58,7 +59,7 @@
             android:id="@+id/main_btn_convert_credit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/big_margin"
             android:gravity="center"
             android:text="@string/convert"
             app:layout_constraintEnd_toEndOf="parent"
@@ -67,8 +68,7 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/main_image_credit_simbol"
-            android:layout_width="24dp"
-            android:layout_height="0dp"
+            style="@style/Widget.CoinConverter.Base.Icon"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/main_txt_conversion"
             app:layout_constraintEnd_toStartOf="@id/main_txt_conversion"
@@ -100,8 +100,8 @@
             android:id="@+id/main_recycler_conversion_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="@dimen/big_margin"
+            android:layout_marginBottom="@dimen/big_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,7 +1,10 @@
 package com.miguelsantos.coinconverter.ui
 
+import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,10 +30,12 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        binding.mainRecyclerConversionList.adapter = adapter
-        binding.mainRecyclerConversionList.layoutManager =
-            LinearLayoutManager(applicationContext)
+        setViews()
+        setObservers()
+        setListeners()
+    }
 
+    private fun setViews() {
         val itemsAdapter: MaterialSpinnerAdapter<String> = MaterialSpinnerAdapter(
             this,
             R.layout.item_currency_code_list,
@@ -40,10 +45,16 @@ class MainActivity : AppCompatActivity() {
             binding.mainSpinnerCurrencyCode.editText as? MaterialAutoCompleteTextView
         materialAutoCompleteTextView?.setAdapter(itemsAdapter)
 
-        setObservers()
+        binding.mainRecyclerConversionList.adapter = adapter
+        binding.mainRecyclerConversionList.layoutManager =
+            LinearLayoutManager(applicationContext)
+    }
 
+    private fun setListeners() {
         binding.mainBtnConvertCredit.setOnClickListener { showResult() }
-
+        binding.mainEdtInputCredit.setOnKeyListener { view, keyCode, _ ->
+            handlerKeyEvents(view, keyCode)
+        }
     }
 
     private fun setObservers() {
@@ -63,16 +74,6 @@ class MainActivity : AppCompatActivity() {
         addCurrency()
     }
 
-    // viewModel
-    private fun addCurrency() {
-        val currency = CurrencyConversion(
-            binding.mainSpinnerCurrencyTxt.text.toString(),
-            binding.mainEdtInputCredit.text.toString(),
-            binding.mainTxtConversion.text.toString()
-        )
-        viewModel.addCurrency(currency)
-    }
-
     private fun displayConversion(value: Double?) {
         if (value == null || value == 0.0) {
             binding.mainTxtConversion.text = "0.0"
@@ -81,7 +82,31 @@ class MainActivity : AppCompatActivity() {
             val result =
                 viewModel.requestResult(binding.mainSpinnerCurrencyTxt.text.toString(), value)
             val formattedValue = NumberFormat.getCurrencyInstance().format(result)
-            binding.mainTxtConversion.text = getString(R.string.result, formattedValue)
+            binding.mainTxtConversion.text =
+                getString(R.string.result, formattedValue.removePrefix("$"))
         }
     }
+
+    private fun addCurrency() {
+        val currency = CurrencyConversion(
+            binding.mainSpinnerCurrencyTxt.text.toString(),
+            binding.mainEdtInputCredit.text.toString(),
+            binding.mainTxtConversion.text.toString()
+        )
+
+        viewModel.addCurrency(currency)
+    }
+
+    // Close keyboard after press enter
+    private fun handlerKeyEvents(view: View, key: Int): Boolean {
+        if (key == KeyEvent.KEYCODE_ENTER) {
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+
+            return true
+        }
+        return false
+    }
+
 }
