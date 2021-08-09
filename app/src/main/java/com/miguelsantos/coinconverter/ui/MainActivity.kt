@@ -59,6 +59,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setObservers() {
         viewModel.list.observe(this) { currencyList ->
+            adapter.notifyItemInserted(currencyList.size)
             adapter.submitList(currencyList)
         }
     }
@@ -71,7 +72,6 @@ class MainActivity : AppCompatActivity() {
 
         val conversion = binding.mainEdtInputCredit.text.toString().toDoubleOrNull()
         displayConversion(conversion)
-        addCurrency()
     }
 
     private fun displayConversion(value: Double?) {
@@ -84,6 +84,7 @@ class MainActivity : AppCompatActivity() {
             val formattedValue = NumberFormat.getCurrencyInstance().format(result)
             binding.mainTxtConversion.text =
                 getString(R.string.result, formattedValue.removePrefix("$"))
+            addCurrency()
         }
     }
 
@@ -97,7 +98,6 @@ class MainActivity : AppCompatActivity() {
         viewModel.addCurrency(currency)
     }
 
-    // Close keyboard after press enter
     private fun handlerKeyEvents(view: View, key: Int): Boolean {
         if (key == KeyEvent.KEYCODE_ENTER) {
             val inputMethodManager =

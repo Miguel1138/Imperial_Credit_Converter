@@ -1,113 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:padding="@dimen/default_padding"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ui.MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/main_input_layout_credit"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="@dimen/default_padding"
-        tools:context=".ui.MainActivity">
+        android:hint="@string/label_input_hint"
+        app:helperText="@string/label_input_helper"
+        app:helperTextEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/main_spinner_currency_code"
+        app:layout_constraintTop_toTopOf="parent"
+        app:prefixText="@string/prefix_input">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/main_input_layout_credit"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/label_input_hint"
-            app:helperText="@string/label_input_helper"
-            app:helperTextEnabled="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/main_spinner_currency_code"
-            app:layout_constraintTop_toTopOf="parent"
-            app:prefixText="@string/prefix_input">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/main_edt_input_credit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:maxLength="10"
-                android:maxLines="1" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/main_spinner_currency_code"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/default_margin"
-            app:helperText="@string/coin"
-            app:helperTextEnabled="true"
-            app:layout_constraintEnd_toStartOf="@id/main_input_layout_credit"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                android:id="@+id/main_spinner_currency_txt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none"
-                android:text="@string/label_currency_default" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/main_btn_convert_credit"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/main_edt_input_credit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/big_margin"
-            android:gravity="center"
-            android:text="@string/convert"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/main_input_layout_credit" />
+            android:inputType="numberDecimal"
+            android:maxLength="10"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/main_image_credit_simbol"
-            style="@style/Widget.CoinConverter.Base.Icon"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/main_txt_conversion"
-            app:layout_constraintEnd_toStartOf="@id/main_txt_conversion"
-            app:layout_constraintTop_toTopOf="@id/main_txt_conversion"
-            app:srcCompat="@drawable/ic_credit_simbol"
-            tools:visibility="visible" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/main_spinner_currency_code"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/default_margin"
+        app:helperText="@string/coin"
+        app:helperTextEnabled="true"
+        app:layout_constraintEnd_toStartOf="@id/main_input_layout_credit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/main_txt_conversion"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/main_spinner_currency_txt"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/result"
-            android:textSize="16sp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/guideline"
-            app:layout_constraintEnd_toEndOf="@id/main_btn_convert_credit"
-            app:layout_constraintTop_toBottomOf="@id/main_btn_convert_credit"
-            tools:text="500,00"
-            tools:visibility="visible" />
+            android:inputType="none"
+            android:text="@string/label_currency_default" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.25" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/main_btn_convert_credit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/convert"
+        app:layout_constraintBottom_toTopOf="@id/main_txt_conversion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_input_layout_credit" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/main_image_credit_simbol"
+        style="@style/Widget.CoinConverter.Base.Icon"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/main_txt_conversion"
+        app:layout_constraintEnd_toStartOf="@id/main_txt_conversion"
+        app:layout_constraintTop_toTopOf="@id/main_txt_conversion"
+        app:srcCompat="@drawable/ic_credit_simbol"
+        tools:visibility="visible" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/main_txt_conversion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/result"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/guideline"
+        app:layout_constraintEnd_toEndOf="@id/main_btn_convert_credit"
+        app:layout_constraintTop_toBottomOf="@id/main_btn_convert_credit"
+        tools:text="500,00"
+        tools:visibility="visible" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="187dp" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/main_recycler_conversion_list"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/big_margin"
             android:layout_marginBottom="@dimen/big_margin"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline"
-            tools:itemCount="8"
             tools:listitem="@layout/item_converted_values" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
