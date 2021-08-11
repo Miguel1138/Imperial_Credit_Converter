@@ -1,14 +1,14 @@
 package com.miguelsantos.coinconverter.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.miguelsantos.coinconverter.model.CurrencyConversion
+import androidx.lifecycle.*
+import com.miguelsantos.coinconverter.datasource.model.CurrencyConversion
+import com.miguelsantos.coinconverter.datasource.repository.CurrencyRepository
+import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
+class MainViewModel(private val repository: CurrencyRepository) : ViewModel() {
 
-    private val _list = MutableLiveData<MutableList<CurrencyConversion>>()
-    val list: LiveData<MutableList<CurrencyConversion>>
+    private val _list = repository.list.asLiveData()
+    val list: LiveData<List<CurrencyConversion>>
         get() = _list
 
     private val _dropdownMenuItems = MutableLiveData<List<String>>()
@@ -16,20 +16,25 @@ class MainViewModel : ViewModel() {
         get() = _dropdownMenuItems
 
     init {
-        _list.value = ArrayList()
         _dropdownMenuItems.value = arrayListOf("BRL", "USD", "EUR", "MXN", "AUD", "JPY")
     }
 
-    /**
-     * Keep track of the list via the MutableLiveData and
-     * update the MutableLiveData with its own value whenever the list contents change.
-     */
-    internal fun addCurrency(currency: CurrencyConversion) {
-        _list.value?.add(currency)
-        _list.value = _list.value
+    internal fun insertCurrency(currency: CurrencyConversion) =
+        viewModelScope.launch { insert(currency) }
+
+    private suspend fun insert(currency: CurrencyConversion) {
+        repository.insertCurrency(currency)
     }
 
-    fun requestResult(result: String, value: Double): Double =
+    internal fun deleteCurrency(currency: CurrencyConversion) =
+        viewModelScope.launch { delete(currency) }
+
+    private suspend fun delete(currency: CurrencyConversion) {
+        repository.deleteCurrency(currency)
+    }
+
+    // TODO: 11/08/2021 Search for API to get the update values of each currency.
+    internal fun requestResult(result: String, value: Double): Double =
         when (result) {
             "BRL" -> value * 5.21
             "EUR" -> value * 0.84

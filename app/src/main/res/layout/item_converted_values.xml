@@ -60,6 +60,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/item_original_value"
             tools:text="BRL" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/item_delete_currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_delete_24"
+            app:layout_constraintBottom_toTopOf="@id/guideline"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

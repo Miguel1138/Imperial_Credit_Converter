@@ -10,25 +10,24 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.miguelsantos.coinconverter.R
+import com.miguelsantos.coinconverter.application.CurrencyApplication
 import com.miguelsantos.coinconverter.databinding.ActivityMainBinding
-import com.miguelsantos.coinconverter.model.CurrencyConversion
+import com.miguelsantos.coinconverter.datasource.model.CurrencyConversion
 import com.miguelsantos.coinconverter.utils.MaterialSpinnerAdapter
 import java.text.NumberFormat
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-    private val adapter: CurrencyAdapter by lazy {
-        CurrencyAdapter()
-    }
+    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    private val adapter by lazy { CurrencyAdapter() }
     private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        val viewModelFactory = ViewModelFactory((application as CurrencyApplication).repository)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
         setViews()
         setObservers()
@@ -46,22 +45,23 @@ class MainActivity : AppCompatActivity() {
         materialAutoCompleteTextView?.setAdapter(itemsAdapter)
 
         binding.mainRecyclerConversionList.adapter = adapter
-        binding.mainRecyclerConversionList.layoutManager =
-            LinearLayoutManager(applicationContext)
-    }
-
-    private fun setListeners() {
-        binding.mainBtnConvertCredit.setOnClickListener { showResult() }
-        binding.mainEdtInputCredit.setOnKeyListener { view, keyCode, _ ->
-            handlerKeyEvents(view, keyCode)
-        }
+        binding.mainRecyclerConversionList.layoutManager = LinearLayoutManager(applicationContext)
     }
 
     private fun setObservers() {
         viewModel.list.observe(this) { currencyList ->
-            adapter.notifyItemInserted(currencyList.size)
             adapter.submitList(currencyList)
         }
+    }
+
+    private fun setListeners() {
+        binding.mainBtnConvertCredit.setOnClickListener { showResult() }
+
+        binding.mainEdtInputCredit.setOnKeyListener { view, keyCode, _ ->
+            handlerKeyEvents(view, keyCode)
+        }
+
+        adapter.listenerDelete = { currency -> viewModel.deleteCurrency(currency) }
     }
 
     private fun showResult() {
@@ -81,9 +81,9 @@ class MainActivity : AppCompatActivity() {
         } else {
             val result =
                 viewModel.requestResult(binding.mainSpinnerCurrencyTxt.text.toString(), value)
-            val formattedValue = NumberFormat.getCurrencyInstance().format(result)
-            binding.mainTxtConversion.text =
-                getString(R.string.result, formattedValue.removePrefix("$"))
+            val formattedValue = NumberFormat.getNumberInstance().format(result)
+            binding.mainTxtConversion.text = getString(R.string.result, formattedValue)
+
             addCurrency()
         }
     }
@@ -92,10 +92,11 @@ class MainActivity : AppCompatActivity() {
         val currency = CurrencyConversion(
             binding.mainSpinnerCurrencyTxt.text.toString(),
             binding.mainEdtInputCredit.text.toString(),
-            binding.mainTxtConversion.text.toString()
+            binding.mainTxtConversion.text.toString(),
+            0
         )
 
-        viewModel.addCurrency(currency)
+        viewModel.insertCurrency(currency)
     }
 
     private fun handlerKeyEvents(view: View, key: Int): Boolean {

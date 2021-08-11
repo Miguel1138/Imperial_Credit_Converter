@@ -6,10 +6,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.miguelsantos.coinconverter.databinding.ItemConvertedValuesBinding
-import com.miguelsantos.coinconverter.model.CurrencyConversion
+import com.miguelsantos.coinconverter.datasource.model.CurrencyConversion
 
 class CurrencyAdapter :
     ListAdapter<CurrencyConversion, CurrencyAdapter.CurrencyViewHolder>(ConversionComparator()) {
+
+    var listenerDelete: (CurrencyConversion) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder {
         val binding =
@@ -28,21 +30,24 @@ class CurrencyAdapter :
             binding.itemOriginalValue.text = currency.currencyValue
             binding.itemCurrencyCode.text = currency.currencyCode
             binding.itemConvertedValue.text = currency.currencyConverted
+            binding.itemDeleteCurrency.setOnClickListener { listenerDelete(currency) }
         }
 
+        // TODO: 10/08/2021 INFLAR O MENU PARA ACIONAR O DELETE TASK.
     }
 
-}
+    class ConversionComparator : DiffUtil.ItemCallback<CurrencyConversion>() {
 
-class ConversionComparator : DiffUtil.ItemCallback<CurrencyConversion>() {
-    override fun areItemsTheSame(
-        oldItem: CurrencyConversion,
-        newItem: CurrencyConversion
-    ): Boolean = oldItem == newItem
+        override fun areItemsTheSame(
+            oldItem: CurrencyConversion,
+            newItem: CurrencyConversion
+        ): Boolean = oldItem == newItem
 
-    override fun areContentsTheSame(
-        oldItem: CurrencyConversion,
-        newItem: CurrencyConversion
-    ): Boolean =
-        oldItem.currencyValue == newItem.currencyValue
+        override fun areContentsTheSame(
+            oldItem: CurrencyConversion,
+            newItem: CurrencyConversion
+        ): Boolean =
+            oldItem.currencyValue == newItem.currencyValue
+    }
+
 }
