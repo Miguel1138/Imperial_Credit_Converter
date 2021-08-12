@@ -1,10 +1,10 @@
-package com.miguelsantos.coinconverter.datasource.database
+package com.miguelsantos.coinconverter.data.localdatasource
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.miguelsantos.coinconverter.datasource.model.CurrencyConversion
+import com.miguelsantos.coinconverter.model.CurrencyConversion
 import kotlinx.coroutines.flow.Flow
 
 @Dao

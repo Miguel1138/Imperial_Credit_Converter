@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.miguelsantos.coinconverter.databinding.ItemConvertedValuesBinding
-import com.miguelsantos.coinconverter.datasource.model.CurrencyConversion
+import com.miguelsantos.coinconverter.model.CurrencyConversion
 
 class CurrencyAdapter :
     ListAdapter<CurrencyConversion, CurrencyAdapter.CurrencyViewHolder>(ConversionComparator()) {

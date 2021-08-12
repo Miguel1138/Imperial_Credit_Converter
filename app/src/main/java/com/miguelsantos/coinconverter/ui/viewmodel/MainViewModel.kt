@@ -1,8 +1,8 @@
-package com.miguelsantos.coinconverter.ui
+package com.miguelsantos.coinconverter.ui.viewmodel
 
 import androidx.lifecycle.*
-import com.miguelsantos.coinconverter.datasource.model.CurrencyConversion
-import com.miguelsantos.coinconverter.datasource.repository.CurrencyRepository
+import com.miguelsantos.coinconverter.data.repository.CurrencyRepository
+import com.miguelsantos.coinconverter.model.CurrencyConversion
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: CurrencyRepository) : ViewModel() {

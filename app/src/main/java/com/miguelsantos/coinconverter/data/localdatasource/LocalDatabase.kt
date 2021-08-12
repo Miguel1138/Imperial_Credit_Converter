@@ -1,10 +1,10 @@
-package com.miguelsantos.coinconverter.datasource.database
+package com.miguelsantos.coinconverter.data.localdatasource
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.miguelsantos.coinconverter.datasource.model.CurrencyConversion
+import com.miguelsantos.coinconverter.model.CurrencyConversion
 import com.miguelsantos.coinconverter.utils.Constants.currencyDBConfig.DATABASE_NAME
 import com.miguelsantos.coinconverter.utils.Constants.currencyDBConfig.DATABASE_VERSION
 

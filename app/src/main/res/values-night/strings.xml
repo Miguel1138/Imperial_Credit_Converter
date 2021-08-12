@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="prefix_input">$</string>
+    <string name="prefix_input" translatable="false">$</string>
     <string name="label_input_hint">Valor</string>
     <string name="label_input_helper">Insira o valor que deseja converter!</string>
     <string name="convert">Converter Créditos</string>
-    <string name="result">%s</string>
-    <string name="label_currency_default">BRL</string>
+    <string name="result" translatable="false">%s</string>
+    <string name="label_currency_default" translatable="false">BRL</string>
     <string name="coin">Moeda</string>
 </resources>

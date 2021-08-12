@@ -1,8 +1,8 @@
-package com.miguelsantos.coinconverter.ui
+package com.miguelsantos.coinconverter.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.miguelsantos.coinconverter.datasource.repository.CurrencyRepository
+import com.miguelsantos.coinconverter.data.repository.CurrencyRepository
 
 class ViewModelFactory(private val repository: CurrencyRepository) : ViewModelProvider.Factory {
 

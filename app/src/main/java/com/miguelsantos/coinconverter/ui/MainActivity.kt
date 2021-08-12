@@ -12,7 +12,9 @@ import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.miguelsantos.coinconverter.R
 import com.miguelsantos.coinconverter.application.CurrencyApplication
 import com.miguelsantos.coinconverter.databinding.ActivityMainBinding
-import com.miguelsantos.coinconverter.datasource.model.CurrencyConversion
+import com.miguelsantos.coinconverter.model.CurrencyConversion
+import com.miguelsantos.coinconverter.ui.viewmodel.MainViewModel
+import com.miguelsantos.coinconverter.ui.viewmodel.ViewModelFactory
 import com.miguelsantos.coinconverter.utils.MaterialSpinnerAdapter
 import java.text.NumberFormat
 

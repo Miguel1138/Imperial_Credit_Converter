@@ -1,8 +1,8 @@
 package com.miguelsantos.coinconverter.application
 
 import android.app.Application
-import com.miguelsantos.coinconverter.datasource.database.LocalDatabase
-import com.miguelsantos.coinconverter.datasource.repository.CurrencyRepository
+import com.miguelsantos.coinconverter.data.localdatasource.LocalDatabase
+import com.miguelsantos.coinconverter.data.repository.CurrencyRepository
 
 class CurrencyApplication : Application() {
 

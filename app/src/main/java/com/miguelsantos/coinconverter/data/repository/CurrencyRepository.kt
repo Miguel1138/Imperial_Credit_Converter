@@ -1,9 +1,9 @@
-package com.miguelsantos.coinconverter.datasource.repository
+package com.miguelsantos.coinconverter.data.repository
 
 import androidx.room.Delete
 import androidx.room.Insert
-import com.miguelsantos.coinconverter.datasource.database.CurrencyDao
-import com.miguelsantos.coinconverter.datasource.model.CurrencyConversion
+import com.miguelsantos.coinconverter.data.localdatasource.CurrencyDao
+import com.miguelsantos.coinconverter.model.CurrencyConversion
 
 class CurrencyRepository(private val currencyDao: CurrencyDao) {
 

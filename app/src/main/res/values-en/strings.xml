@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Imperial Converter</string>
+    <string name="label_input_hint">Value</string>
+    <string name="label_input_helper">Put the amount you want to convert!</string>
+    <string name="convert">Convert Credits</string>
+    <string name="result">%s</string>
+    <string name="label_currency_default">BRL</string>
+    <string name="coin">Currency</string>
+</resources>
