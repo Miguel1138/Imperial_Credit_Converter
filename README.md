@@ -17,7 +17,7 @@
 The values of every currency are static, at least for now and I also used the USD as the imperial Currency value, for the conversions.
 </p>
   <p align="center">
- <img src="https://github.com/Miguel1138/Imperial_Credit_Converter/blob/master/screenshots/insert_value.PNG" width="20%">
+ <img src="https://github.com/Miguel1138/Imperial_Credit_Converter/blob/master/screenshots/Insert_value.PNG" width="20%">
  <img src="https://github.com/Miguel1138/Imperial_Credit_Converter/blob/master/screenshots/show_spinner.PNG" width="20%">
  <img src="https://github.com/Miguel1138/Imperial_Credit_Converter/blob/master/screenshots/show_scroll.PNG" width="20%">
 </p>
